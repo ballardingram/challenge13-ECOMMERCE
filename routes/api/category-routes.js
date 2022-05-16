@@ -56,14 +56,56 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new category
+  Category.create({
+    category_name: req.body.category_name
+  })
+  .then(dbCategoryData => res.json(dbCategoryData))
+  .catch(err => res.json(err));
 });
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
+  Category.update(
+    {
+      category_name: req.body.category_name
+    },
+    {
+      where: {
+        id: req.params.id
+      }
+    }
+  )
+  .then(dbCategoryData => {
+    if(!dbCategoryData) {
+      res.status(404).json({message:'Unable to update a category with that ID. REASON: ID not found.'});
+      return;
+    }
+    res.json(dbCategoryData);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
+  Category.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(dbCategoryData => {
+    if(!dbCategoryData) {
+      res.status(404).json({message: 'Unable to delete a category with that ID. REASON: ID not found.'})
+      return;
+    }
+    res.json(dbCategoryData);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 module.exports = router;
