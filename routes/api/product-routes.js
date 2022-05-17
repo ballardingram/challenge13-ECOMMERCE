@@ -12,11 +12,11 @@ router.get('/', (req, res) => {
     include: [
       {
         model: Category,
-        attributes: ['category_name']
+        attributes: ['id','category_name']
       },
       {
         model: Tag,
-        attributes: ['tag_name']
+        attributes: ['id','tag_name']
       }
     ]
   })
@@ -36,15 +36,14 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     },
     attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
-    order: [['price']],
     include: [
       {
         model: Category,
-        attributes: ['category_name']
+        attributes: ['id','category_name']
       },
       {
         model: Tag,
-        attributes: ['tag_name']
+        attributes: ['id','tag_name']
       }
     ]
   })
@@ -71,12 +70,7 @@ router.post('/', (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-  Product.create({
-    product_name: req.body.product_name,
-    price: req.body.price,
-    stock: req.body.stock,
-    tagIDs: req.body.tagIDs
-  })
+  Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
@@ -101,11 +95,7 @@ router.post('/', (req, res) => {
 // update product
 router.put('/:id', (req, res) => {
   // update product data
-  Product.update(
-      {
-        product_name: req.body.product_name
-      },
-      {
+  Product.update(req.body, {
     where: {
       id: req.params.id,
     },
