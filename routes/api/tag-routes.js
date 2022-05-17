@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     include: [
       {
         model: Product,
-        attributes: ['product_name', 'price', 'stock', 'category_id']
+        attributes: ['id','product_name', 'price', 'stock', 'category_id']
       }
     ]
   })
@@ -30,11 +30,10 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     },
     attributes: ['id', 'tag_name'],
-    order: [['tag_name']],
     include: [
       {
         model: Product,
-        attributes: ['product_name', 'price', 'stock', 'category_id']
+        attributes: ['id','product_name', 'price', 'stock', 'category_id']
       }
     ]
   })
@@ -65,19 +64,14 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  Tag.update(
-    {
-      tag_name: req.body.tag_name
-    },
-    {
-      where: {
-        id: req.params.id
-      }
+  Tag.update(req.body, {
+    where: {
+      id: req.params.id
     }
-  )
+  })
   .then(dbTagData => {
-    if(!dbTagData) {
-      res.status(404).json({message: 'Unable to update tag name with tag ID provided.'});
+    if (!dbTagData[0]) {
+      res.status(404).json({message: 'Unable to update tag with the tag ID provided.'});
       return;
     }
     res.json(dbTagData);
@@ -85,8 +79,8 @@ router.put('/:id', (req, res) => {
   .catch(err => {
     console.log(err);
     res.status(500).json(err);
+    });
   });
-});
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
