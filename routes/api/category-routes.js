@@ -7,7 +7,6 @@ router.get('/', (req, res) => {
   // find all categories
   // be sure to include its associated Products
   Category.findAll({
-    attributes:['id', 'category_name'],
     include: [
        {
          model: Product,
@@ -47,7 +46,7 @@ router.get('/:id', (req, res) => {
     console.log(err);
     res.json(500).json(err);
   });
-});;
+});
 
 router.post('/', (req, res) => {
   // create a new category
