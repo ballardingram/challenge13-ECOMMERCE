@@ -34,11 +34,10 @@ Getting the routes and models correct was actually much easier than I thought. I
 ## Project Media
 ### Video Demo
 1. You can access the video demo by clicking on the link below. That is for download.
-
-![alt text](https://github.com/ballardingram/challenge13-ECOMMERCE/blob/main/assets/media/readme00.mp4 "Video Download")
+https://github.com/ballardingram/challenge13-ECOMMERCE/blob/main/assets/media/readme00.mp4
 
 2. If you would prefer an online site you access the youtube link below instead.
-![alt text](https://youtu.be/fL6sERjx4Ho "Yotube Video")
+https://youtu.be/fL6sERjx4Ho
 
 ![alt text](https://github.com/ballardingram/challenge13-ECOMMERCE/blob/main/assets/media/readme01.gif "Create Schema and MySQL Shell with Seeds")
 
